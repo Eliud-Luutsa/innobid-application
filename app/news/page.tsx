@@ -82,7 +82,7 @@ Founded in 2014, FasterCapital is a global venture builder and incubator helping
     author: "Ye! Community",
     date: "2024-11-20",
     source: "International Trade Center's Ye! Community",
-    sourceUrl: "https://www.your-community.org/article",
+    sourceUrl: "https://social.yecommunity.com/news/1358449",
     image: "/news/ye-community-article.jpg",
     category: 'article'
   }
