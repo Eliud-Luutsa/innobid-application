@@ -30,8 +30,14 @@ export default function Home() {
               <Link href="#why-us" className="text-muted-foreground hover:text-primary">
                 Why Us?
               </Link>
-              <Link href="#about" className="text-muted-foreground hover:text-primary">
+              <Link href="/about" className="text-muted-foreground hover:text-primary">
                 About
+              </Link>
+              <Link href="/team" className="text-muted-foreground hover:text-primary">
+                Team
+              </Link>
+              <Link href="/news" className="text-muted-foreground hover:text-primary">
+                News
               </Link>
               <Link href="#services" className="text-muted-foreground hover:text-primary">
                 Other Services
@@ -83,18 +89,32 @@ export default function Home() {
                   Why us?
                 </Link>
                 <Link 
+                  href="/about" 
+                  className="text-muted-foreground hover:text-primary px-2"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  About
+                </Link>
+                <Link 
+                  href="/team" 
+                  className="text-muted-foreground hover:text-primary px-2"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  Team
+                </Link>
+                <Link 
+                  href="/news" 
+                  className="text-muted-foreground hover:text-primary px-2"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  News
+                </Link>
+                <Link 
                   href="#services" 
                   className="text-muted-foreground hover:text-primary px-2"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   Other Services
-                </Link>
-                <Link 
-                  href="#about" 
-                  className="text-muted-foreground hover:text-primary px-2"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                >
-                  About
                 </Link>
                 <Link 
                   href="#contact" 

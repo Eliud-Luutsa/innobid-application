@@ -9,18 +9,6 @@ const nextConfig = {
     optimizePackageImports: ['swagger-ui-react']
   },
   
-  // Cross-browser polyfills and optimizations
-  webpack: (config, { dev, isServer }) => {
-    // Add polyfill for older browsers
-    config.resolve.fallback = {
-      ...config.resolve.fallback,
-      fs: false,
-      path: false,
-    };
-    
-    return config;
-  },
-  
   images: {
     deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048],
     imageSizes: [16, 32, 48, 64, 96, 128, 256],
@@ -59,6 +47,13 @@ const nextConfig = {
   transpilePackages: ['swagger-ui-react', 'swagger-ui-dist'],
   
   webpack: (config, { isServer, dev }) => {
+    // Add polyfill for older browsers
+    config.resolve.fallback = {
+      ...config.resolve.fallback,
+      fs: false,
+      path: false,
+    };
+    
     if (!isServer) {
       // Simple optimization config without custom CSS loaders
       config.optimization.splitChunks = {
