@@ -28,22 +28,48 @@ const newsArticles: NewsArticle[] = [
   {
     id: 1,
     title: "FasterCapital Backs Innobid's AI-Powered E-Procurement Solution to Boost Market Access",
-    summary: "Innobid, a Kenyan tech startup focused on creating inclusive procurement systems, has received backing from FasterCapital to scale its AI-powered e-procurement platform. The investment will help Innobid expand its mission to address procurement disparities affecting women and youth entrepreneurs through innovative technology solutions.",
-    fullContent: `Innobid, a Kenyan tech startup focused on creating inclusive procurement systems, has received backing from FasterCapital to scale its AI-powered e-procurement platform. The investment will help Innobid expand its mission to address procurement disparities affecting women and youth entrepreneurs through innovative technology solutions.
+    summary: "Innobid, a pioneering AI-enabled e-procurement tech startup focused on enhancing transparency and equity in procurement, today announced a strategic partnership with FasterCapital through its LaunchUp program. This collaboration aims to accelerate Innobid's market entry and scale its innovative solution across government, private, and global development sectors.",
+    fullContent: `Innobid, a pioneering AI-enabled e-procurement tech startup focused on enhancing transparency and equity in procurement, today announced a strategic partnership with FasterCapital through its LaunchUp program. This collaboration aims to accelerate Innobid's market entry and scale its innovative solution across government, private, and global development sectors, primarily targeting Africa and emerging markets. The partnership leverages FasterCapital's global reach and expertise to validate Innobid's product-market fit and fast-track capital raising and business growth.
 
-The partnership with FasterCapital represents a significant milestone for Innobid as it seeks to revolutionize procurement processes across Africa. The startup's platform leverages artificial intelligence and machine learning to enhance transparency, efficiency, and fairness in government and private sector procurement.
+## Market Opportunity & Problem Statement
 
-"Our mission is to create pathways for more equitable distribution of government, global development, and private sector contracts," said Eliud Luutsa, CEO and Co-Founder of Innobid. "This backing from FasterCapital will enable us to scale our impact and reach more entrepreneurs who have been traditionally excluded from these opportunities."
+The global procurement market is estimated to reach over $10 trillion, yet remains plagued by inefficiencies, corruption, and exclusion—especially for women and youth-owned MSMEs. Innobid targets procurement disparities using AI-driven automation and transparency tools, enabling fairer and more inclusive workflows.
 
-The investment will support Innobid's expansion plans, including:
-• Enhanced AI capabilities for bid analysis and anomaly detection
-• Platform improvements to serve more users across different regions
-• Strategic partnerships with government agencies and development organizations
-• Community outreach programs to empower women and youth entrepreneurs
+## Startup Solution & Differentiation
 
-FasterCapital's support aligns with Innobid's vision of becoming the leading tech-for-good organization fostering the inclusion of youth and women changemakers into national and global commerce and finance systems.`,
+Innobid's platform automates bid screening, legal compliance, risk assessment, and anomaly detection. A citizen engagement module invites public monitoring, enhancing accountability. With a majority female and fully youth-owned leadership, Innobid blends technology with community oversight and capacity building, setting it apart from competitors.
+
+## FasterCapital Partnership Value
+
+Through the LaunchUp program, Innobid gains tailored mentorship, global investor access, and strategic guidance. This collaboration accelerates product refinement and targets a $100,000 funding milestone while expanding market reach.
+
+## Quotes
+
+**Hesham Zreik, CEO of FasterCapital:**
+"Innobid exemplifies the kind of innovative, impact-driven startup that LaunchUp aims to empower. Their focus on using AI to address real-world procurement challenges while promoting inclusion aligns perfectly with our mission to support transformative solutions."
+
+**Eliud Luutsa, CEO & Co-Founder of Innobid:**
+"Our partnership with FasterCapital validates Innobid's mission to democratize access for women and youth entrepreneurs in the procurement ecosystem. This collaboration will accelerate our ability to scale impact and create more equitable opportunities across Africa and emerging markets."
+
+## Growth Plans
+
+Innobid plans to onboard anchor clients and complete pilot projects with government agencies in Africa. Future plans include building a sales engine, launching training academies, and expanding analytics/mobile access for rural suppliers.
+
+## About Innobid
+
+Founded in 2022 and majority female-owned, Innobid uses AI to simplify procurement processes and enhance equity, targeting underserved entrepreneurs.
+
+## About FasterCapital
+
+Founded in 2014, FasterCapital is a global venture builder and incubator helping startups with funding, development, and go-to-market strategy.
+
+## Contact
+
+📩 rasha.almasri@fastercapital.com  
+🌍 www.fastercapital.com  
+📞 +971 555 855 663`,
     author: "Innobid Team",
-    date: "2024-12-15",
+    date: "2025-07-06",
     source: "Innobid Press Release",
     image: "/news/fastercapital-backing.jpg",
     category: 'press-release',
@@ -277,12 +303,59 @@ export default function NewsPage() {
               {expandedArticle === article.id && article.fullContent && (
                 <CardContent className="pt-0">
                   <Separator className="mb-6" />
-                  <div className="prose prose-sm max-w-none">
-                    {article.fullContent.split('\n\n').map((paragraph, index) => (
-                      <p key={index} className="text-muted-foreground leading-relaxed mb-4 last:mb-0">
-                        {paragraph}
-                      </p>
-                    ))}
+                  
+                  {/* Hero Image for FasterCapital Press Release */}
+                  {article.id === 1 && (
+                    <div className="w-full flex justify-center my-6">
+                      <img 
+                        src="/images/press-release.png" 
+                        alt="FasterCapital backs Innobid press release" 
+                        className="rounded-lg shadow-lg max-w-3xl w-full object-cover"
+                      />
+                    </div>
+                  )}
+                  
+                  <div className="prose prose-sm max-w-none space-y-6">
+                    {article.fullContent.split('\n\n').map((paragraph, index) => {
+                      // Check if paragraph starts with ## (markdown header)
+                      if (paragraph.startsWith('## ')) {
+                        const title = paragraph.replace('## ', '');
+                        return (
+                          <div key={index} className="mt-8 mb-4">
+                            <h3 className="text-lg font-semibold text-primary mb-3">
+                              {title}
+                            </h3>
+                          </div>
+                        );
+                      }
+                      // Check if paragraph contains ** (bold text)
+                      if (paragraph.includes('**')) {
+                        const parts = paragraph.split('**');
+                        return (
+                          <div key={index} className="space-y-2">
+                            {parts.map((part, partIndex) => {
+                              if (partIndex % 2 === 1) {
+                                // Bold text
+                                return (
+                                  <span key={partIndex} className="font-semibold text-primary">
+                                    {part}
+                                  </span>
+                                );
+                              } else {
+                                // Regular text
+                                return part;
+                              }
+                            })}
+                          </div>
+                        );
+                      }
+                      // Regular paragraph
+                      return (
+                        <p key={index} className="text-muted-foreground leading-relaxed">
+                          {paragraph}
+                        </p>
+                      );
+                    })}
                   </div>
                 </CardContent>
               )}
