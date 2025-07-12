@@ -2,13 +2,77 @@
 
 import Image from "next/image"
 import Link from "next/link"
-import { ArrowLeft, Users, Target, Eye, Heart, Shield, TrendingUp } from 'lucide-react'
+import { ArrowLeft, Users, Target, Eye, Heart, Shield, TrendingUp, ChevronLeft, ChevronRight } from 'lucide-react'
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { MainNavigation } from "@/components/main-navigation"
+import { useState } from "react"
+
+// Partner data
+const partners = [
+  {
+    id: 1,
+    name: "FasterCapital",
+    logo: "/images/fastercapital-logo.png", 
+    tag: "Resource Mobilisation and Strategic Partner",
+    description: "FasterCapital has been instrumental in providing comprehensive resource mobilization support and strategic guidance, enabling Innobid to scale our e-procurement platform and reach more women and youth entrepreneurs across the region."
+  },
+  {
+    id: 2,
+    name: "AccountabilityLab",
+    logo: "/images/accountabilitylab-logo.png", 
+    tag: "Strategic Partner",
+    description: "AccountabilityLab has been a key strategic partner in our mission to create transparent and accountable procurement systems. Their expertise in governance and transparency has helped us develop robust mechanisms that ensure fair and equitable access to procurement opportunities for women and youth entrepreneurs."
+  },
+  {
+    id: 3,
+    name: "Innovation Hub Africa",
+    logo: "/images/partner3.png",
+    tag: "Technology Partner",
+    description: "Innovation Hub Africa has provided technical expertise and mentorship, helping us develop cutting-edge AI solutions for transparent procurement processes."
+  },
+  {
+    id: 4,
+    name: "Women in Tech Initiative",
+    logo: "/images/partner4.png",
+    tag: "Community Partner",
+    description: "This partnership has been crucial in connecting us with women entrepreneurs and providing insights into the specific challenges they face in procurement processes."
+  },
+  {
+    id: 5,
+    name: "Youth Empowerment Network",
+    logo: "/images/partner5.png",
+    tag: "Impact Partner",
+    description: "The Youth Empowerment Network has helped us understand and address the unique barriers young entrepreneurs face, shaping our platform's youth-focused features."
+  },
+  {
+    id: 6,
+    name: "Digital Transformation Alliance",
+    logo: "/images/partner6.png",
+    tag: "Innovation Partner",
+    description: "This alliance has provided valuable insights into digital transformation strategies, helping us build a more robust and scalable e-procurement solution."
+  }
+]
 
 export default function AboutPage() {
+  const [currentSlide, setCurrentSlide] = useState(0)
+  const cardsPerView = 2
+  const totalSlides = Math.ceil(partners.length / cardsPerView)
+
+  const nextSlide = () => {
+    setCurrentSlide((prev) => (prev + 1) % totalSlides)
+  }
+
+  const prevSlide = () => {
+    setCurrentSlide((prev) => (prev - 1 + totalSlides) % totalSlides)
+  }
+
+  const getVisiblePartners = () => {
+    const startIndex = currentSlide * cardsPerView
+    return partners.slice(startIndex, startIndex + cardsPerView)
+  }
+
   return (
     <main className="min-h-screen bg-background text-foreground">
       {/* Header */}
@@ -220,6 +284,92 @@ export default function AboutPage() {
                   </p>
                 </CardContent>
               </Card>
+            </div>
+          </section>
+
+          {/* Partners Section */}
+          <section className="space-y-8">
+            <div className="text-center">
+              <h2 className="text-2xl md:text-3xl font-bold text-primary mb-4">
+                Our Partners
+              </h2>
+              <p className="text-muted-foreground max-w-2xl mx-auto">
+                We're proud to collaborate with organizations that share our vision of creating more inclusive and transparent procurement systems. Our partners provide invaluable support through investment, strategic guidance, and community connections.
+              </p>
+            </div>
+
+            {/* Partners Slider */}
+            <div className="relative">
+              <div className="grid md:grid-cols-2 gap-6 mb-8">
+                {getVisiblePartners().map((partner) => (
+                  <Card key={partner.id} className="rounded-xl hover:shadow-lg transition-shadow border-primary/20">
+                    <CardHeader className="text-center pb-4">
+                      {/* Partner Logo */}
+                      <div className="mx-auto mb-4 p-4 bg-primary/5 rounded-lg w-24 h-24 flex items-center justify-center">
+                        <Image
+                          src={partner.logo}
+                          alt={`${partner.name} logo`}
+                          width={64}
+                          height={64}
+                          className="object-contain"
+                        />
+                      </div>
+                      
+                      {/* Partner Tag */}
+                      <div className="flex justify-center mb-2">
+                        <Badge variant="secondary" className="w-fit">
+                          {partner.tag}
+                        </Badge>
+                      </div>
+                      
+                      <CardTitle className="text-lg font-semibold text-primary">
+                        {partner.name}
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent className="text-center">
+                      <p className="text-sm text-muted-foreground leading-relaxed">
+                        {partner.description}
+                      </p>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+
+              {/* Navigation Arrows */}
+              <div className="flex justify-center items-center gap-4">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={prevSlide}
+                  className="rounded-full w-10 h-10 p-0"
+                  disabled={currentSlide === 0}
+                >
+                  <ChevronLeft className="h-4 w-4" />
+                </Button>
+                
+                {/* Dots Indicator */}
+                <div className="flex gap-2">
+                  {Array.from({ length: totalSlides }, (_, index) => (
+                    <button
+                      key={index}
+                      onClick={() => setCurrentSlide(index)}
+                      className={`w-2 h-2 rounded-full transition-colors ${
+                        index === currentSlide ? 'bg-primary' : 'bg-primary/20'
+                      }`}
+                    />
+                  ))}
+                </div>
+
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={nextSlide}
+                  className="rounded-full w-10 h-10 p-0"
+                  disabled={currentSlide === totalSlides - 1}
+                >
+                  <ChevronRight className="h-4 w-4" />
+                </Button>
+              </div>
             </div>
           </section>
 
